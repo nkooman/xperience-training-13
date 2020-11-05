@@ -1,0 +1,32 @@
+﻿@using MedioClinic.Widgets
+@model ImageWidgetViewModel?
+
+@if (Model != null)
+{
+    <section>
+        @if (Model.HasImage)
+        {
+            if (Model.ImageUrl != null)
+            {
+                var imageUrl = Model.ImageUrl.WithSizeConstraint(SizeConstraint.Empty);
+                <img src="@imageUrl" alt="Image" />
+            }
+            else
+            {
+                var message = new UserMessage
+                {
+                    Display = true,
+                    Message = "The image no longer exist.",
+                    MessageType = MessageType.Error
+                };
+
+                Html.DisplayFor(m => message);
+            }
+        }
+    </section>
+
+    @if (Context.Kentico().PageBuilder().EditMode)
+    {
+        // TODO: Editor.
+    }
+}
